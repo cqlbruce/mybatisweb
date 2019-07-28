@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shanhe.web.mapper.TeacherInfoDao">
+
+    <select id="selById" parameterType="java.lang.String" resultType="com.shanhe.web.pojo.TeacherInfo">
+      select * from teacher_info where id=#{0}
+    </select>
+
+
+	<resultMap type="com.shanhe.web.pojo.TeacherInfo" id="teacherMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<collection property="list"  ofType="com.shanhe.web.pojo.StudentInfo"  select="com.shanhe.web.mapper.StudentInfoDao.selById" column="id"></collection>
+	</resultMap>
+
+	<select id="selByAll" resultMap="teacherMap" >
+		select * from teacher_info 
+	</select>
+
+</mapper>
